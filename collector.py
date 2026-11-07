@@ -46,7 +46,7 @@ def main():
                 title = str(product.get("title") or "").strip()
                 handle = str(product.get("handle") or "").strip()
                 pid = product.get("id")
-                if not title or not handle or not pid or any(w in title.casefold() for w in ("gift card","checkout+","package protection","free gift","100% off","subscription")):
+                if not title or not handle or not pid or any(w in title.casefold() for w in ("gift card","checkout+","package protection","free gift","100% off","subscription","shipping protection","return protection","order protection","protection plan","carbon neutral order","gift wrap")):
                     continue
                 key = (now[:10],base,str(pid))
                 if key in existing:
