@@ -46,7 +46,7 @@ def main():
                 title = str(product.get("title") or "").strip()
                 handle = str(product.get("handle") or "").strip()
                 pid = product.get("id")
-                if not title or not handle or not pid:
+                if not title or not handle or not pid or any(w in title.casefold() for w in ("gift card","checkout+","package protection","free gift","100% off","subscription")):
                     continue
                 key = (now[:10],base,str(pid))
                 if key in existing:
@@ -54,7 +54,9 @@ def main():
                 variants = product.get("variants") or []
                 prices = [v.get("price") for v in variants if v.get("price") is not None]
                 available = any(v.get("available") is True for v in variants) if variants else None
-                data["observations"].append({"observed_at":now,"source_type":"shopify_catalog","store":base,"market":store["market"],"product_category":store["category"],"product_id":pid,"term":title,"vendor":product.get("vendor"),"price":prices[0] if prices else None,"currency":"unknown (storefront currency; verify)","available":available,"source_url":base+"/products/"+handle,"published_at":product.get("published_at"),"evidence":"Public storefront catalog listing; not verified sales or trend"})
+                images = product.get("images") or []
+                image_url = (product.get("image") or {}).get("src") or (images[0].get("src") if images else None)
+                data["observations"].append({"image_url":image_url,"observed_at":now,"source_type":"shopify_catalog","store":base,"market":store["market"],"product_category":store["category"],"product_id":pid,"term":title,"vendor":product.get("vendor"),"price":prices[0] if prices else None,"currency":"unknown (storefront currency; verify)","available":available,"source_url":base+"/products/"+handle,"published_at":product.get("published_at"),"evidence":"Public storefront catalog listing; not verified sales or trend"})
                 existing.add(key)
                 added += 1
             statuses[base]={"ok":True,"catalog_count":len(products),"added":added}
