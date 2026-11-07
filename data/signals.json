@@ -1,51 +1,9 @@
 {
-  "schema": 1,
-  "source": "Google Trends RSS, strict exact-name physical-product filter (not sales)",
-  "last_run": "2026-11-07T00:13:58.511172+00:00",
+  "schema": 2,
+  "source": "Public Shopify storefront product catalogs",
+  "last_run": null,
   "observations": [],
-  "runs": [
-    {
-      "at": "2026-11-07T00:12:21.545029+00:00",
-      "status": {
-        "US": {
-          "ok": true,
-          "items": 10
-        },
-        "GB": {
-          "ok": true,
-          "items": 10
-        },
-        "DE": {
-          "ok": true,
-          "items": 10
-        },
-        "IL": {
-          "ok": true,
-          "items": 10
-        }
-      }
-    },
-    {
-      "at": "2026-11-07T00:13:58.511172+00:00",
-      "status": {
-        "US": {
-          "ok": true,
-          "items": 10
-        },
-        "GB": {
-          "ok": true,
-          "items": 10
-        },
-        "DE": {
-          "ok": true,
-          "items": 10
-        },
-        "IL": {
-          "ok": true,
-          "items": 10
-        }
-      }
-    }
-  ],
-  "filter_version": 2
+  "runs": [],
+  "filter_version": 2,
+  "source_type": "shopify_catalog"
 }
