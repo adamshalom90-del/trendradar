@@ -13,15 +13,11 @@ PRODUCTS = {
  'gadgets': ['portable monitor','wireless charger','power bank','smart plug','smart light','smart bulb','security camera','dash cam','bluetooth tracker','3d printer','thermal printer','mini projector','wireless earbuds','mechanical keyboard','gaming mouse','usb hub','charging station','portable fan','מסך נייד','מטען אלחוטי','סוללה ניידת','שקע חכם','נורה חכמה','מצלמת אבטחה','מצלמת רכב','מדפסת תלת מימד','מקרן נייד','אוזניות אלחוטיות','מקלדת מכנית','עכבר גיימינג']
 }
 BLOCK = ['election','president','prime minister','war','attack','killed','earthquake','stock','shares','earnings','football','soccer','nba','nfl','movie','actor','celebrity','netflix','concert','lottery','weather','news','trump','biden','iran','israel war','בחירות','מלחמה','פיגוע','רעידת אדמה','בורסה','מניות','כדורגל','כדורסל','חדשות','מזג אוויר']
-def matches(term, phrase):
-    # Avoid short substring false positives (e.g. "cat" inside "category")
-    return re.search(r'(?<!\w)' + re.escape(phrase) + r'(?!\w)', term, re.UNICODE) is not None
 def category(term):
-    t = term.casefold()
-    if any(matches(t, x) for x in BLOCK):
-        return None
+    # Exact product name only. News headlines, people's names and games are not products.
+    normalized = re.sub(r'\\s+', ' ', term.casefold().strip())
     for name, phrases in PRODUCTS.items():
-        if any(matches(t, x) for x in phrases):
+        if normalized in phrases:
             return name
     return None
 
@@ -33,9 +29,10 @@ def main():
         data = {'observations': [], 'runs': []}
     data.setdefault('observations', [])
     data.setdefault('runs', [])
-    # Historical observations are preserved, but only strict matches are marked products.
+    # Remove old general-news observations. Keep only strict product matches.
+    data['observations'] = [item for item in data['observations'] if category(item.get('term', ''))]
     for item in data['observations']:
-        item['product_category'] = category(item.get('term', ''))
+        item['product_category'] = category(item['term'])
     existing = {(x.get('observed_at','')[:10], x.get('geo'), x.get('term')) for x in data['observations']}
     status = {}
     for geo in COUNTRIES:
