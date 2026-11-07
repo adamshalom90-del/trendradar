@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "source": "Public Shopify storefront product catalogs",
-  "last_run": "2026-11-07T00:20:00+00:00",
+  "last_run": "2026-11-07T00:24:22+00:00",
   "observations": [
     {
       "observed_at": "2026-11-07T00:20:00+00:00",
@@ -4226,6 +4226,36 @@
         }
       },
       "new_observations": 262
+    },
+    {
+      "at": "2026-11-07T00:24:22+00:00",
+      "status": {
+        "https://www.petlibro.com": {
+          "ok": true,
+          "catalog_count": 71,
+          "added": 0
+        },
+        "https://www.grovemade.com": {
+          "ok": false,
+          "error": "HTTP Error 404: Not Found"
+        },
+        "https://www.blendjet.com": {
+          "ok": true,
+          "catalog_count": 80,
+          "added": 0
+        },
+        "https://www.ugmonk.com": {
+          "ok": true,
+          "catalog_count": 100,
+          "added": 0
+        },
+        "https://www.bokksu.com": {
+          "ok": true,
+          "catalog_count": 11,
+          "added": 0
+        }
+      },
+      "new_observations": 0
     }
   ],
   "filter_version": 2,
