@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "source": "Google Trends Trending Now RSS (search interest, not sales)",
-  "last_run": "2026-11-07T00:12:21.545029+00:00",
+  "last_run": "2026-11-07T00:13:58.511172+00:00",
   "observations": [
     {
       "observed_at": "2026-11-07T00:12:21.545029+00:00",
@@ -282,11 +282,39 @@
       "term": "евровидение-2027",
       "source_url": "https://trends.google.com/trending/rss?geo=IL",
       "published": "Fri, 6 Nov 2026 11:10:00 -0800"
+    },
+    {
+      "observed_at": "2026-11-07T00:13:58.511172+00:00",
+      "geo": "US",
+      "term": "youngstown st vs ohio state",
+      "source_url": "https://trends.google.com/trending/rss?geo=US",
+      "published": "Fri, 6 Nov 2026 15:30:00 -0800"
     }
   ],
   "runs": [
     {
       "at": "2026-11-07T00:12:21.545029+00:00",
+      "status": {
+        "US": {
+          "ok": true,
+          "items": 10
+        },
+        "GB": {
+          "ok": true,
+          "items": 10
+        },
+        "DE": {
+          "ok": true,
+          "items": 10
+        },
+        "IL": {
+          "ok": true,
+          "items": 10
+        }
+      }
+    },
+    {
+      "at": "2026-11-07T00:13:58.511172+00:00",
       "status": {
         "US": {
           "ok": true,
