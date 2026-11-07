@@ -34,7 +34,7 @@ def main():
     data.setdefault("runs", [])
     # Do not mix Google Trends news observations with product listings.
     data["observations"] = [x for x in data["observations"] if x.get("source_type")=="shopify_catalog"]
-    existing = {(x.get("observed_at","")[:10],x.get("store"),str(x.get("product_id"))) for x in data["observations"]}
+    existing = {(x.get("observed_at","")[:10],x.get("store"),str(x.get("product_id"))): x for x in data["observations"]}
     statuses = {}
     new = 0
     for store in STORES:
@@ -50,6 +50,11 @@ def main():
                     continue
                 key = (now[:10],base,str(pid))
                 if key in existing:
+                    old = existing[key]
+                    images = product.get("images") or []
+                    image_url = (product.get("image") or {}).get("src") or (images[0].get("src") if images else None)
+                    if image_url and not old.get("image_url"):
+                        old["image_url"] = image_url
                     continue
                 variants = product.get("variants") or []
                 prices = [v.get("price") for v in variants if v.get("price") is not None]
@@ -57,7 +62,7 @@ def main():
                 images = product.get("images") or []
                 image_url = (product.get("image") or {}).get("src") or (images[0].get("src") if images else None)
                 data["observations"].append({"image_url":image_url,"observed_at":now,"source_type":"shopify_catalog","store":base,"market":store["market"],"product_category":store["category"],"product_id":pid,"term":title,"vendor":product.get("vendor"),"price":prices[0] if prices else None,"currency":"unknown (storefront currency; verify)","available":available,"source_url":base+"/products/"+handle,"published_at":product.get("published_at"),"evidence":"Public storefront catalog listing; not verified sales or trend"})
-                existing.add(key)
+                existing[key] = data["observations"][-1]
                 added += 1
             statuses[base]={"ok":True,"catalog_count":len(products),"added":added}
             new += added
